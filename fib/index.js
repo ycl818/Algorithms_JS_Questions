@@ -18,11 +18,27 @@
 //   return fib(n - 1) + fib(n - 2);
 // }
 
+function memoize(fn) {
+  let cache = {};
+  return function (...args) {
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    let result = fn.apply(this, args);
+    cache[args] = result;
+
+    return result;
+  };
+}
+
 function fib(n) {
   if (n < 2) return n;
 
   return fib(n - 1) + fib(n - 2);
 }
+
+fib = memoize(fib);
 
 // function fib(n) {
 //   let result = [0, 1];
